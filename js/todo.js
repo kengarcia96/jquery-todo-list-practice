@@ -22,4 +22,83 @@ $(document)
         }
 
         // code to be implemented
+
+        $("ol").on("click", ".done-todo", function() {
+        if($(this).prop("checked") == true){
+            $(this).parent().addClass("checked")
+        }
+        else if($(this).prop("checked") == false){
+            $(this).parent().removeClass("checked")
+        }
+        });
+
+
+        function checkView(){
+
+            // // if ('[data-filter="all"]'){
+            // //     $("[href='#']")[0].click();
+            // // }
+
+            // // else if ('[data-filter="active"]'){
+            // //     $("[href='#']")[1].click();
+            // // }
+
+            //  if ($("[href='#']").attr("data-filter=complete"") == "complete"){
+            //     $("[href='#']")[2].click();
+            // }
+
+        }
+
+        function newToDo() {
+            let inputText = $(".input-text").val();
+
+            if (inputText==""){
+                alert("Empty Note discarded.");
+            }
+
+            else{
+                $("ol").append('<li id='+ generateUUID() + ' class="">' + '<input name="done-todo" type="checkbox" class="done-todo">' + inputText+ '</li>');
+                $(".input-text").val("");
+                checkView();
+
+            }
+
+        }
+
+        $('#button').click(newToDo);
+
+        $('.input-text').bind('keypress', function(key) {
+        if(key.keyCode==13){
+            newToDo();
+        }
+        });
+
+
+        function noteViews() {
+            if ($(this).attr("data-filter") == "all") {
+                $('ol li').show();
+                $('[data-filter="active"],[data-filter="complete"]').removeClass("selected");
+                $(this).addClass("selected");
+            } else if ($(this).attr("data-filter") == "active") {
+                $('ol li').show();
+                $('ol li.checked').hide();
+                $('[data-filter="all"],[data-filter="complete"]').removeClass("selected");
+                $(this).addClass("selected");
+            } else if ($(this).attr("data-filter") == "complete") {
+                $('ol li').hide();
+                $('ol li.checked').show();
+                $('[data-filter="all"],[data-filter="active"]').removeClass("selected");
+                $(this).addClass("selected");
+            }
+        };
+
+        $("[href='#']").click(noteViews);
+
+        $(document).on("dblclick", "li", function() {
+            $(this).attr("contenteditable", "true");
+        });
+        $(document).on("focusout", "li", function() {
+            $(this).attr("contenteditable", "false");
+        });
+            
     });
