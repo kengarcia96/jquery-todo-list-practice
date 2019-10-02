@@ -32,37 +32,17 @@ $(document)
         }
         });
 
-
-        function checkView(){
-
-            // // if ('[data-filter="all"]'){
-            // //     $("[href='#']")[0].click();
-            // // }
-
-            // // else if ('[data-filter="active"]'){
-            // //     $("[href='#']")[1].click();
-            // // }
-
-            //  if ($("[href='#']").attr("data-filter=complete"") == "complete"){
-            //     $("[href='#']")[2].click();
-            // }
-
-        }
-
         function newToDo() {
             let inputText = $(".input-text").val();
 
             if (inputText==""){
                 alert("Empty Note discarded.");
             }
-
             else{
                 $("ol").append('<li id='+ generateUUID() + ' class="">' + '<input name="done-todo" type="checkbox" class="done-todo">' + inputText+ '</li>');
                 $(".input-text").val("");
-                checkView();
 
             }
-
         }
 
         $('#button').click(newToDo);
@@ -72,7 +52,6 @@ $(document)
             newToDo();
         }
         });
-
 
         function noteViews() {
             if ($(this).attr("data-filter") == "all") {
